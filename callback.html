@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authenticating...</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="background-pattern"></div>
+    <div class="container">
+        <div class="auth-loading">
+            <div class="loading-animation">
+                <div class="spinner">
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                </div>
+            </div>
+            <h2>Authenticating...</h2>
+            <p>Please wait while we securely log you in</p>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Configuration ---
+        // This MUST match the final destination for your users.
+        const MAIN_APP_URL = 'http://localhost:4000/dashboard'; // Replace with your sample app's URL
+
+        /**
+         * This function redirects the user to the main application, passing the token.
+         * It's a simplified version of the function in script.js
+         */
+        function redirectToMainApp(accessToken) {
+            if (!accessToken) {
+                // If there's no token, something went wrong. Go back to the login page with an error.
+                window.location.href = `/?error=true&message=Authentication_failed._Please_try_again.`;
+                return;
+            }
+            // Construct the final URL and redirect
+            const redirectUrl = new URL(MAIN_APP_URL);
+            redirectUrl.searchParams.set('access_token', accessToken);
+            
+            // Add a small delay to show the loading animation
+            setTimeout(() => {
+                window.location.href = redirectUrl.toString();
+            }, 2000);
+        }
+
+        // --- Main Logic ---
+        // On page load, immediately try to get the access token from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const accessToken = urlParams.get('access_token');
+        
+        // The refresh token is automatically set as an HttpOnly cookie by the IdP.
+        // We only need to handle the access token here.
+        redirectToMainApp(accessToken);
+
+        // Start the progress bar animation
+        window.addEventListener('DOMContentLoaded', () => {
+            const progressFill = document.querySelector('.progress-fill');
+            progressFill.style.width = '100%';
+        });
+    </script>
+</body>
+</html>
