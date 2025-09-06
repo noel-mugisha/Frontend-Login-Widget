@@ -362,6 +362,31 @@ function checkForUrlErrors() {
     }
 }
 
+// Additional styles for enhanced functionality
+const additionalStyles = `
+    .shake {
+        animation: shake 0.5s ease-in-out;
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+    
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+`;
+
 // Inject additional styles if they don't exist
 if (!document.getElementById('enhanced-styles')) {
     const styleElement = document.createElement('style');
