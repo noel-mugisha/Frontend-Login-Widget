@@ -11,7 +11,7 @@ const IDP_BASE_URL = 'http://localhost:8080';
 
 // The URL of your "Main Application" where the user should be sent after a
 // successful login. The access token will be appended to this URL.
-const MAIN_APP_CALLBACK_URL = 'http://localhost:4000/handle-login'; // Example for a sample app
+const MAIN_APP_CALLBACK_URL = 'http://localhost:3000/auth/callback'; 
 
 /**
  * -----------------------------------------------------------------------------

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Authentication - Verify Email</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-pattern"></div>
+    <div class="container">
+        <div class="login-card">
+            <div class="header"><h1>Check Your Email</h1></div>
+            <p class="subtitle">We've sent a 6-digit verification code to the email address you provided.</p>
+            <form id="verify-form" class="login-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required placeholder="Your email">
+                </div>
+                <div class="form-group">
+                    <label for="otp">Verification Code</label>
+                    <input type="text" id="otp" required placeholder="Enter 6-digit code">
+                </div>
+                <button type="submit" class="btn btn-primary">Verify Account</button>
+            </form>
+            <div id="message-area" class="message-area" style="display: none;"></div>
+        </div>
+    </div>
+    <script src="auth.js"></script>
+</body>
+</html>
