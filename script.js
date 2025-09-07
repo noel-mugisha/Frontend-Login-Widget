@@ -11,7 +11,7 @@ const IDP_BASE_URL = 'http://localhost:8080';
 
 // The URL of your "Main Application" where the user should be sent after a
 // successful login. The access token will be appended to this URL.
-const MAIN_APP_CALLBACK_URL = 'http://localhost:3000/auth/callback'; 
+const MAIN_APP_CALLBACK_URL = 'http://localhost:3000/auth/callback';
 
 /**
  * -----------------------------------------------------------------------------
@@ -105,6 +105,7 @@ async function handleEmailPasswordLogin(event) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password }),
+            credentials: 'include'
         });
 
         // The fetch API doesn't throw an error for HTTP error statuses (like 401 or 500),
