@@ -124,7 +124,7 @@ async function handleEmailPasswordLogin(event) {
         
         // Small delay to show success message
         setTimeout(() => {
-            handleSuccessfulLogin(data.access_token);
+            handleSuccessfulLogin(data.access_token, data.refresh_token);
         }, 1000);
 
     } catch (error) {
@@ -153,19 +153,17 @@ function handleLinkedInLogin() {
  * It redirects the user back to the main application with the access token.
  * @param {string} accessToken - The short-lived JWT access token.
  */
-function handleSuccessfulLogin(accessToken) {
-    if (!accessToken) {
-        displayMessage('Login successful, but no access token was received.', 'error');
+function handleSuccessfulLogin(accessToken, refreshToken) { 
+    if (!accessToken || !refreshToken) { 
+        displayMessage('Login failed: missing tokens.', 'error');
         setLoadingState(false);
         return;
     }
 
-    // The access token should be stored in memory. The most secure way to pass it
-    // from the IdP widget to the main app is via a URL parameter in a one-time redirect.
     const redirectUrl = new URL(MAIN_APP_CALLBACK_URL);
     redirectUrl.searchParams.set('access_token', accessToken);
+    redirectUrl.searchParams.set('refresh_token', refreshToken); 
     
-    // Redirect the user to the main application.
     window.location.href = redirectUrl.toString();
 }
 

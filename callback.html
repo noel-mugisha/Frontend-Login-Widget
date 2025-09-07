@@ -35,8 +35,8 @@
          * This function redirects the user to the main application, passing the token.
          * It's a simplified version of the function in script.js
          */
-        function redirectToMainApp(accessToken) {
-            if (!accessToken) {
+        function redirectToMainApp(accessToken, refreshToken) {
+            if (!accessToken || !refreshToken) {
                 // If there's no token, something went wrong. Go back to the login page with an error.
                 window.location.href = `/?error=true&message=Authentication_failed._Please_try_again.`;
                 return;
@@ -44,7 +44,8 @@
             // Construct the final URL and redirect
             const redirectUrl = new URL(MAIN_APP_URL);
             redirectUrl.searchParams.set('access_token', accessToken);
-            
+            redirectUrl.searchParams.set('refresh_token', refreshToken);
+
             // Add a small delay to show the loading animation
             setTimeout(() => {
                 window.location.href = redirectUrl.toString();
@@ -55,10 +56,11 @@
         // On page load, immediately try to get the access token from the URL
         const urlParams = new URLSearchParams(window.location.search);
         const accessToken = urlParams.get('access_token');
+        const refreshToken = urlParams.get('refresh_token');
         
         // The refresh token is automatically set as an HttpOnly cookie by the IdP.
         // We only need to handle the access token here.
-        redirectToMainApp(accessToken);
+        redirectToMainApp(accessToken, refreshToken);
 
         // Start the progress bar animation
         window.addEventListener('DOMContentLoaded', () => {
