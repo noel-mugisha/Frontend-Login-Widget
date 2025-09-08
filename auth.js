@@ -1,4 +1,4 @@
-const IDP_BASE_URL = 'http://localhost:8080';
+const IDP_BASE_URL = '%%IDP_BASE_URL%%' // replace with 'http://localhost:8080' in development;
 
 const registerForm = document.getElementById('register-form');
 const verifyForm = document.getElementById('verify-form');

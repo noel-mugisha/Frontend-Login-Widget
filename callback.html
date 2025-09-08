@@ -27,7 +27,7 @@
     </div>
 
     <script>
-        const MAIN_APP_URL = 'http://localhost:3000/auth/callback';
+        const MAIN_APP_CALLBACK_URL = '%%MAIN_APP_CALLBACK_URL%%' // replace with 'http://localhost:3000/auth/callback' in development;
 
         function redirectToMainApp(accessToken, refreshToken) {
             if (!accessToken || !refreshToken) {

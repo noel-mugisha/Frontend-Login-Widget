@@ -1,5 +1,5 @@
-const IDP_BASE_URL = 'http://localhost:8080';
-const MAIN_APP_CALLBACK_URL = 'http://localhost:3000/auth/callback';
+const IDP_BASE_URL = '%%IDP_BASE_URL%%' // replace with 'http://localhost:8080' in development;
+const MAIN_APP_CALLBACK_URL = '%%MAIN_APP_CALLBACK_URL%%' // replace with 'http://localhost:3000/auth/callback' in development;
 const loginForm = document.getElementById('login-form');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
