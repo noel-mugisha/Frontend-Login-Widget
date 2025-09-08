@@ -145,7 +145,7 @@ function handleLinkedInLogin() {
     // This is the "magic" URL that starts the OAuth2 flow.
     // We simply redirect the user's browser to this IdP endpoint.
     // Spring Security takes over from here.
-    window.location.href = `${IDP_BASE_URL}/oauth2/authorization/linkedin`;
+    window.location.href = `${IDP_BASE_URL}/linkedin/authorize`;
 }
 
 /**
