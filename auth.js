@@ -1,12 +1,9 @@
-// --- Configuration ---
 const IDP_BASE_URL = 'http://localhost:8080';
 
-// --- DOM Element Selection ---
 const registerForm = document.getElementById('register-form');
 const verifyForm = document.getElementById('verify-form');
 const messageArea = document.getElementById('message-area');
 
-// --- Event Listeners ---
 if (registerForm) {
     registerForm.addEventListener('submit', handleRegister);
     // Add role selection functionality
@@ -20,24 +17,19 @@ if (registerForm) {
 }
 if (verifyForm) {
     verifyForm.addEventListener('submit', handleVerify);
-    // Auto-populate email if it's in the URL
     window.addEventListener('DOMContentLoaded', () => {
         const urlParams = new URLSearchParams(window.location.search);
         const email = urlParams.get('email');
         if (email) {
             document.getElementById('email').value = email;
-            // Update subtitle with user's email for better UX
             const subtitle = document.getElementById('verification-subtitle');
             if (subtitle) {
                 subtitle.innerHTML = `We've sent a 6-digit code to <strong>${email}</strong>. Please enter it below.`;
             }
         }
     });
-    // Initialize the new OTP input logic
     initializeOtpInputs();
 }
-
-// --- Core Functions ---
 
 async function handleRegister(event) {
     event.preventDefault();
@@ -56,7 +48,6 @@ async function handleRegister(event) {
         return;
     }
 
-    // Show loading state
     setRegisterLoadingState(true);
     clearMessage();
 
@@ -71,8 +62,6 @@ async function handleRegister(event) {
             const errorData = await response.json();
             throw new Error(errorData.message || 'Registration failed.');
         }
-
-        // Redirect to verification page, passing email in URL
         window.location.href = `verify.html?email=${encodeURIComponent(email)}`;
 
     } catch (error) {
@@ -84,20 +73,15 @@ async function handleRegister(event) {
 async function handleVerify(event) {
     event.preventDefault();
     const email = document.getElementById('email').value;
-    // UPDATED: Combine values from all OTP inputs
     const otpInputs = document.querySelectorAll('.otp-input');
     const otp = Array.from(otpInputs).map(input => input.value).join('');
-
-    // Client-side validation for OTP length
     if (otp.length !== 6) {
         displayMessage('Please enter the full 6-digit code.', 'error');
         const otpContainer = document.getElementById('otp-container');
         otpContainer.classList.add('error');
-        setTimeout(() => otpContainer.classList.remove('error'), 500); // Shake animation
+        setTimeout(() => otpContainer.classList.remove('error'), 500);
         return;
     }
-
-    // Show loading state
     setVerifyLoadingState(true);
     clearMessage();
 
@@ -121,14 +105,11 @@ async function handleVerify(event) {
     } catch (error) {
         displayMessage(error.message, 'error');
         setVerifyLoadingState(false);
-        // Add error state to OTP inputs
         const otpContainer = document.getElementById('otp-container');
         otpContainer.classList.add('error');
     }
 }
 
-
-// --- OTP Input Enhancement ---
 function initializeOtpInputs() {
     const otpContainer = document.getElementById('otp-container');
     if (!otpContainer) return;
@@ -136,16 +117,13 @@ function initializeOtpInputs() {
     const inputs = Array.from(otpContainer.querySelectorAll('.otp-input'));
 
     inputs.forEach((input, index) => {
-        // Handle digit input
         input.addEventListener('input', () => {
-            // Remove error state on new input
             otpContainer.classList.remove('error');
             if (input.value.length === 1 && index < inputs.length - 1) {
                 inputs[index + 1].focus();
             }
         });
 
-        // Handle backspace and arrow keys
         input.addEventListener('keydown', (e) => {
             if (e.key === 'Backspace' && !input.value && index > 0) {
                 inputs[index - 1].focus();
@@ -155,24 +133,19 @@ function initializeOtpInputs() {
                 inputs[index + 1].focus();
             }
         });
-
-        // Handle pasting code
         input.addEventListener('paste', (e) => {
             e.preventDefault();
             const pasteData = e.clipboardData.getData('text');
-            // Basic validation for pasted content
             if (pasteData.length === 6 && /^\d{6}$/.test(pasteData)) {
                 inputs.forEach((box, i) => {
                     box.value = pasteData[i];
                 });
-                // Submit form automatically after paste
                 verifyForm.requestSubmit();
             }
         });
     });
 }
 
-// --- UI Helper Functions (can be shared or duplicated from script.js) ---
 function displayMessage(text, type) {
     if (!messageArea) return;
     messageArea.textContent = text;
@@ -232,17 +205,14 @@ function setVerifyLoadingState(isLoading) {
     }
 }
 
-// --- Role Selection Functions ---
 function initializeRoleSelection() {
     const roleOptions = document.querySelectorAll('.role-option');
     
     roleOptions.forEach(option => {
-        // Click handler
         option.addEventListener('click', () => {
             selectRole(option, roleOptions);
         });
         
-        // Keyboard handler
         option.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -250,7 +220,6 @@ function initializeRoleSelection() {
             }
         });
         
-        // Make role options focusable
         option.setAttribute('tabindex', '0');
         option.setAttribute('role', 'radio');
         option.setAttribute('aria-checked', 'false');
@@ -258,17 +227,14 @@ function initializeRoleSelection() {
 }
 
 function selectRole(selectedOption, allOptions) {
-    // Remove selected class from all options
     allOptions.forEach(opt => {
         opt.classList.remove('selected');
         opt.setAttribute('aria-checked', 'false');
     });
     
-    // Add selected class to clicked option
     selectedOption.classList.add('selected');
     selectedOption.setAttribute('aria-checked', 'true');
     
-    // Check the radio button
     const radio = selectedOption.querySelector('input[type="radio"]');
     if (radio) {
         radio.checked = true;
@@ -346,7 +312,6 @@ function initializePasswordMatch() {
     confirmPasswordInput.addEventListener('input', checkPasswordMatch);
 }
 
-// --- Password Toggle Functions ---
 function initializePasswordToggles() {
     const passwordToggle = document.getElementById('password-toggle');
     const confirmPasswordToggle = document.getElementById('confirm-password-toggle');
@@ -375,12 +340,10 @@ function togglePasswordVisibility(input, toggle) {
         icon.className = isPasswordVisible ? 'far fa-eye' : 'far fa-eye-slash';
     }
     
-    // Add a small animation
     toggle.style.transform = 'scale(0.9)';
     setTimeout(() => {
         toggle.style.transform = 'scale(1)';
     }, 100);
     
-    // Focus back on the input
     input.focus();
 }
