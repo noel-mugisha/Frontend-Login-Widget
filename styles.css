@@ -824,3 +824,79 @@ input.invalid {
         color: #cbd5e0;
     }
 }
+
+/* --- OTP Verification Styles --- */
+
+.otp-input-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.otp-input {
+    width: 48px;
+    height: 56px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    padding: 0; /* Override default padding */
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    color: #2d3748;
+    background: #fafafa;
+    transition: all 0.2s ease;
+    outline: none;
+    -webkit-appearance: none; /* Remove arrows in number inputs on Safari */
+    -moz-appearance: textfield; /* Remove arrows in number inputs on Firefox */
+}
+
+/* Remove icon for OTP inputs */
+.otp-input:focus {
+    border-color: #667eea;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: scale(1.05);
+}
+
+.otp-input-container.error .otp-input {
+    border-color: #f56565;
+}
+
+.otp-input-container.error {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Adjust subtitle to allow for bold text */
+.login-card .subtitle {
+    line-height: 1.5;
+}
+
+/* Verification page logo override */
+.login-card .header .logo i.fa-envelope-open-text {
+    color: white; /* Ensure icon is white */
+}
+.login-card .header .logo {
+    background: linear-gradient(135deg, #38b2ac, #319795);
+    box-shadow: 0 8px 16px rgba(56, 178, 172, 0.3);
+}
+
+/* Responsive adjustments for OTP inputs */
+@media (max-width: 480px) {
+    .otp-input-container {
+        gap: 8px;
+    }
+    
+    .otp-input {
+        width: 40px;
+        height: 48px;
+        font-size: 20px;
+        border-radius: 8px;
+    }
+}

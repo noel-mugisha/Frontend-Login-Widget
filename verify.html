@@ -11,10 +11,15 @@
     <div class="background-pattern"></div>
     <div class="container">
         <div class="login-card">
-            <div class="header"><h1>Check Your Email</h1></div>
-            <p class="subtitle">We've sent a 6-digit verification code to the email address you provided.</p>
+            <div class="header">
+                <div class="logo">
+                    <i class="fas fa-envelope-open-text"></i>
+                </div>
+                <h1>Check Your Email</h1>
+                <p class="subtitle" id="verification-subtitle">We've sent a 6-digit code to your email address. Please enter it below to continue.</p>
+            </div>
             <form id="verify-form" class="login-form">
-                <div class="form-group">
+                <div class="form-group" style="display: none;">
                     <label for="email">Email Address</label>
                     <div class="input-wrapper">
                         <i class="fas fa-envelope input-icon"></i>
@@ -22,10 +27,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="otp">Verification Code</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-key input-icon"></i>
-                        <input type="text" id="otp" required placeholder="Enter 6-digit code" maxlength="6">
+                    <label for="otp-1">Verification Code</label>
+                    <div class="otp-input-container" id="otp-container">
+                        <input type="text" class="otp-input" id="otp-1" required maxlength="1" inputmode="numeric" pattern="[0-9]*">
+                        <input type="text" class="otp-input" id="otp-2" required maxlength="1" inputmode="numeric" pattern="[0-9]*">
+                        <input type="text" class="otp-input" id="otp-3" required maxlength="1" inputmode="numeric" pattern="[0-9]*">
+                        <input type="text" class="otp-input" id="otp-4" required maxlength="1" inputmode="numeric" pattern="[0-9]*">
+                        <input type="text" class="otp-input" id="otp-5" required maxlength="1" inputmode="numeric" pattern="[0-9]*">
+                        <input type="text" class="otp-input" id="otp-6" required maxlength="1" inputmode="numeric" pattern="[0-9]*">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">
@@ -36,6 +45,10 @@
                 </button>
             </form>
             <div id="message-area" class="message-area" style="display: none;"></div>
+
+            <div class="footer">
+                <p>Didn't receive the code? <a href="#" class="link">Resend</a></p>
+            </div>
         </div>
     </div>
     <script src="auth.js"></script>

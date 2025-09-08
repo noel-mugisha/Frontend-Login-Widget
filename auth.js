@@ -26,8 +26,15 @@ if (verifyForm) {
         const email = urlParams.get('email');
         if (email) {
             document.getElementById('email').value = email;
+            // Update subtitle with user's email for better UX
+            const subtitle = document.getElementById('verification-subtitle');
+            if (subtitle) {
+                subtitle.innerHTML = `We've sent a 6-digit code to <strong>${email}</strong>. Please enter it below.`;
+            }
         }
     });
+    // Initialize the new OTP input logic
+    initializeOtpInputs();
 }
 
 // --- Core Functions ---
@@ -77,7 +84,18 @@ async function handleRegister(event) {
 async function handleVerify(event) {
     event.preventDefault();
     const email = document.getElementById('email').value;
-    const otp = document.getElementById('otp').value;
+    // UPDATED: Combine values from all OTP inputs
+    const otpInputs = document.querySelectorAll('.otp-input');
+    const otp = Array.from(otpInputs).map(input => input.value).join('');
+
+    // Client-side validation for OTP length
+    if (otp.length !== 6) {
+        displayMessage('Please enter the full 6-digit code.', 'error');
+        const otpContainer = document.getElementById('otp-container');
+        otpContainer.classList.add('error');
+        setTimeout(() => otpContainer.classList.remove('error'), 500); // Shake animation
+        return;
+    }
 
     // Show loading state
     setVerifyLoadingState(true);
@@ -103,7 +121,55 @@ async function handleVerify(event) {
     } catch (error) {
         displayMessage(error.message, 'error');
         setVerifyLoadingState(false);
+        // Add error state to OTP inputs
+        const otpContainer = document.getElementById('otp-container');
+        otpContainer.classList.add('error');
     }
+}
+
+
+// --- OTP Input Enhancement ---
+function initializeOtpInputs() {
+    const otpContainer = document.getElementById('otp-container');
+    if (!otpContainer) return;
+
+    const inputs = Array.from(otpContainer.querySelectorAll('.otp-input'));
+
+    inputs.forEach((input, index) => {
+        // Handle digit input
+        input.addEventListener('input', () => {
+            // Remove error state on new input
+            otpContainer.classList.remove('error');
+            if (input.value.length === 1 && index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            }
+        });
+
+        // Handle backspace and arrow keys
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && !input.value && index > 0) {
+                inputs[index - 1].focus();
+            } else if (e.key === 'ArrowLeft' && index > 0) {
+                inputs[index - 1].focus();
+            } else if (e.key === 'ArrowRight' && index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            }
+        });
+
+        // Handle pasting code
+        input.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const pasteData = e.clipboardData.getData('text');
+            // Basic validation for pasted content
+            if (pasteData.length === 6 && /^\d{6}$/.test(pasteData)) {
+                inputs.forEach((box, i) => {
+                    box.value = pasteData[i];
+                });
+                // Submit form automatically after paste
+                verifyForm.requestSubmit();
+            }
+        });
+    });
 }
 
 // --- UI Helper Functions (can be shared or duplicated from script.js) ---
@@ -151,18 +217,18 @@ function setRegisterLoadingState(isLoading) {
 function setVerifyLoadingState(isLoading) {
     const submitBtn = document.querySelector('#verify-form button[type="submit"]');
     const emailInput = document.getElementById('email');
-    const otpInput = document.getElementById('otp');
+    const otpInputs = document.querySelectorAll('.otp-input');
     
     if (isLoading) {
         submitBtn.classList.add('loading');
         submitBtn.disabled = true;
         if (emailInput) emailInput.disabled = true;
-        if (otpInput) otpInput.disabled = true;
+        otpInputs.forEach(input => input.disabled = true);
     } else {
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
         if (emailInput) emailInput.disabled = false;
-        if (otpInput) otpInput.disabled = false;
+        otpInputs.forEach(input => input.disabled = false);
     }
 }
 
