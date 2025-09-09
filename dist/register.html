@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Authentication - Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="background-pattern"></div>
+    <div class="container">
+        <div class="login-card signup-card">
+            <div class="header">
+                <div class="logo">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h1>Create Account</h1>
+                <p class="subtitle">Join our platform today</p>
+            </div>
+
+            <form id="register-form" class="login-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="email" required autocomplete="email" placeholder="Enter your email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" required autocomplete="new-password" placeholder="Create a password">
+                        <button type="button" class="password-toggle" id="password-toggle">
+                            <i class="far fa-eye" id="password-icon"></i>
+                        </button>
+                    </div>
+                    <div class="password-strength" id="password-strength">
+                        <div class="strength-bar">
+                            <div class="strength-fill" id="strength-fill"></div>
+                        </div>
+                        <span class="strength-text" id="strength-text">Enter a password</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="confirm-password" required autocomplete="new-password" placeholder="Confirm your password">
+                        <button type="button" class="password-toggle" id="confirm-password-toggle">
+                            <i class="far fa-eye" id="confirm-password-icon"></i>
+                        </button>
+                    </div>
+                    <div class="password-match" id="password-match" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Passwords match</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Select Your Role</label>
+                    <div class="role-selection">
+                        <div class="role-option" data-role="USER">
+                            <div class="role-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="role-content">
+                                <h3>User</h3>
+                                <p>I complete tasks and collaborate on projects</p>
+                            </div>
+                            <div class="role-radio">
+                                <input type="radio" name="role" value="USER" id="role-user" required>
+                                <div class="radio-custom"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="role-option" data-role="MANAGER">
+                            <div class="role-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div class="role-content">
+                                <h3>Manager</h3>
+                                <p>I create projects and manage teams</p>
+                            </div>
+                            <div class="role-radio">
+                                <input type="radio" name="role" value="MANAGER" id="role-manager" required>
+                                <div class="radio-custom"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="terms" required>
+                        <span class="checkmark"></span>
+                        <span class="checkbox-text">I agree to the <a href="#" class="link">Terms of Service</a> and <a href="#" class="link">Privacy Policy</a></span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <span class="btn-text">Create Account</span>
+                    <div class="loading-spinner" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                </button>
+            </form>
+
+            <div id="message-area" class="message-area" style="display: none;"></div>
+
+            <div class="footer">
+                <p>Already have an account? <a href="index.html" class="link">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>

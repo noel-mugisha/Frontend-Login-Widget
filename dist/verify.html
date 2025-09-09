@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Authentication - Verify Email</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="background-pattern"></div>
+    <div class="container">
+        <div class="login-card">
+            <div class="header">
+                <div class="logo">
+                    <i class="fas fa-envelope-open-text"></i>
+                </div>
+                <h1>Check Your Email</h1>
+                <p class="subtitle" id="verification-subtitle">We've sent a 6-digit code to your email address. Please enter it below to continue.</p>
+            </div>
+            <form id="verify-form" class="login-form">
+                <div class="form-group" style="display: none;">
+                    <label for="email">Email Address</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="email" required autocomplete="email" placeholder="Your email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="otp-1">Verification Code</label>
+                    <div class="otp-input-container" id="otp-container">
+                        <input type="text" class="otp-input" id="otp-1" required maxlength="1" inputmode="numeric" pattern="[0-9]*">
+                        <input type="text" class="otp-input" id="otp-2" required maxlength="1" inputmode="numeric" pattern="[0-9]*">
+                        <input type="text" class="otp-input" id="otp-3" required maxlength="1" inputmode="numeric" pattern="[0-9]*">
+                        <input type="text" class="otp-input" id="otp-4" required maxlength="1" inputmode="numeric" pattern="[0-9]*">
+                        <input type="text" class="otp-input" id="otp-5" required maxlength="1" inputmode="numeric" pattern="[0-9]*">
+                        <input type="text" class="otp-input" id="otp-6" required maxlength="1" inputmode="numeric" pattern="[0-9]*">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <span class="btn-text">Verify Account</span>
+                    <div class="loading-spinner" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                </button>
+            </form>
+            <div id="message-area" class="message-area" style="display: none;"></div>
+
+            <div class="footer">
+                <p>Didn't receive the code? <a href="#" class="link">Resend</a></p>
+            </div>
+        </div>
+    </div>
+    <script src="auth.js"></script>
+</body>
+</html>

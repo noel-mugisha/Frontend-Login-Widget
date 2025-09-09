@@ -1,5 +1,5 @@
-const IDP_BASE_URL = 'http://localhost:8080' // replace with 'http://localhost:8080' in development;
-const MAIN_APP_CALLBACK_URL = 'http://localhost:3000/auth/callback' // replace with 'http://localhost:3000/auth/callback' in development;
+const IDP_BASE_URL = 'https://standalone-auth-system-production.up.railway.app' // replace with 'http://localhost:8080' in development;
+const MAIN_APP_CALLBACK_URL = 'https://main-app-frontend.vercel.app/auth/callback' // replace with 'http://localhost:3000/auth/callback' in development;
 const loginForm = document.getElementById('login-form');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');

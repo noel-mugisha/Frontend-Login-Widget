@@ -27,14 +27,14 @@
     </div>
 
     <script>
-        const MAIN_APP_CALLBACK_URL = 'http://localhost:3000/auth/callback' // replace with 'http://localhost:3000/auth/callback' in development;
+        const MAIN_APP_CALLBACK_URL = 'https://main-app-frontend.vercel.app/auth/callback' // replace with 'http://localhost:3000/auth/callback' in development;
 
         function redirectToMainApp(accessToken, refreshToken) {
             if (!accessToken || !refreshToken) {
                 window.location.href = `/?error=true&message=Authentication_failed._Please_try_again.`;
                 return;
             }
-            const redirectUrl = new URL(MAIN_APP_CALLBACK_URL);
+            const redirectUrl = new URL(MAIN_APP_URL);
             redirectUrl.searchParams.set('access_token', accessToken);
             redirectUrl.searchParams.set('refresh_token', refreshToken);
 

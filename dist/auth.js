@@ -1,4 +1,4 @@
-const IDP_BASE_URL = 'http://localhost:8080' // replace with 'http://localhost:8080' in development;
+const IDP_BASE_URL = 'https://standalone-auth-system-production.up.railway.app' // replace with 'http://localhost:8080' in development;
 
 const registerForm = document.getElementById('register-form');
 const verifyForm = document.getElementById('verify-form');
